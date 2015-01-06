@@ -1,0 +1,30 @@
+{
+	"ImportPath": "github.com/metral/corekube/overlord",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/coreos/fleet/log",
+			"Comment": "v0.3.2-910-g8b2b335",
+			"Rev": "8b2b3351f42a98b60f9a110bf93485c35ae78ac0"
+		},
+		{
+			"ImportPath": "github.com/coreos/fleet/pkg",
+			"Comment": "v0.3.2-910-g8b2b335",
+			"Rev": "8b2b3351f42a98b60f9a110bf93485c35ae78ac0"
+		},
+		{
+			"ImportPath": "github.com/coreos/fleet/unit",
+			"Comment": "v0.3.2-910-g8b2b335",
+			"Rev": "8b2b3351f42a98b60f9a110bf93485c35ae78ac0"
+		},
+		{
+			"ImportPath": "github.com/coreos/go-systemd/unit",
+			"Comment": "v2-39-ge3e4f60",
+			"Rev": "e3e4f602334ec3e1c2cd68322a1284903c62f940"
+		},
+		{
+			"ImportPath": "github.com/metral/goutils",
+			"Rev": "b86b35400fc45071f1f174e99dbcdfba0f7b3534"
+		}
+	]
+}
