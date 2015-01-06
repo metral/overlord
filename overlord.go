@@ -1,6 +1,6 @@
 package main
 
-import "github.com/metral/corekube/overlord/lib"
+import "github.com/metral/overlord/lib"
 
 func main() {
 	lib.Main()

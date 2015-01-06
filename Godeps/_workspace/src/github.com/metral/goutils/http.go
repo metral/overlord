@@ -33,14 +33,14 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	CheckForErrors(ErrorParams{Err: err, CallerNum: 1})
+	CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
 
 	switch resp.StatusCode {
 	case http.StatusTemporaryRedirect:
 		u, err := resp.Location()
 
 		if err != nil {
-			CheckForErrors(ErrorParams{Err: err, CallerNum: 1})
+			CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
 		} else {
 			p.Url = u.String()
 			HttpCreateRequest(p)
@@ -49,7 +49,7 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte) {
 		statusCode = resp.StatusCode
 
 		body, err := ioutil.ReadAll(resp.Body)
-		CheckForErrors(ErrorParams{Err: err, CallerNum: 1})
+		CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
 		bodyBuffer = *bytes.NewBuffer(body)
 	}
 	defer resp.Body.Close()
