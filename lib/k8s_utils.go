@@ -76,7 +76,7 @@ func registerMinions(master *FleetMachine, minions *FleetMachines) {
 
 	var minionsResult MinionsResult
 	err := json.Unmarshal(jsonResponse, &minionsResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	// See if minions discovered have been registered. If not, register
 	for _, minion := range m {
@@ -102,7 +102,7 @@ func register(endpoint, addr string) error {
 		HostIP:     addr,
 	}
 	data, err := json.Marshal(m)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	url := fmt.Sprintf("%s/api/%s/minions", endpoint, K8S_API_VERSION)
 

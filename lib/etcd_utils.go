@@ -62,7 +62,7 @@ func getFleetMachines(fleetResult *Result) {
 
 	_, jsonResponse := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, fleetResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	removeOverlord(&fleetResult.Node.Nodes)
 }
@@ -90,12 +90,12 @@ func getMachinesSeen() []string {
 
 	_, jsonResponse := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, &machinesSeenResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	var machinesSeen []string
 	var machinesSeenBytes []byte = []byte(machinesSeenResult.Node.Value)
 	err = json.Unmarshal(machinesSeenBytes, &machinesSeen)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	return machinesSeen
 }
@@ -167,11 +167,11 @@ func waitForMetadata(
 
 	var nodeResult NodeResult
 	err := json.Unmarshal(jsonResponse, &nodeResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	err = json.Unmarshal(
 		[]byte(nodeResult.Node.Value), &fleetMachine)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	for len(fleetMachine.Metadata) == 0 ||
 		fleetMachine.Metadata["kubernetes_role"] == nil {
@@ -181,7 +181,7 @@ func waitForMetadata(
 
 		err = json.Unmarshal(
 			[]byte(nodeResult.Node.Value), &fleetMachine)
-		goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+		goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	}
 }

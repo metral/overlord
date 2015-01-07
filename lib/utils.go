@@ -14,7 +14,7 @@ import (
 func getDockerHostIP() string {
 	cmd := fmt.Sprintf("netstat -nr | grep '^0\\.0\\.0\\.0' | awk '{print $2}'")
 	out, err := exec.Command("sh", "-c", cmd).Output()
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 1})
+	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 
 	ip := string(out)
 	ip = strings.Replace(ip, "\n", "", -1)
