@@ -101,6 +101,7 @@ func createMasterUnits(
 	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
 	apiserver := string(readfile)
 	apiserver = strings.Replace(apiserver, "<ID>", fleetMachine.ID, -1)
+	apiserver = strings.Replace(apiserver, "<IP_ADDR>", fleetMachine.PublicIP, -1)
 
 	// Write apiserver service file
 	filename = strings.Replace(files["api"], "@", "@"+fleetMachine.ID, -1)
