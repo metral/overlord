@@ -10,10 +10,11 @@ type ErrorParams struct {
 	Err       error
 	Stderr    string
 	CallerNum int
+	Fatal     bool
 }
 
 // check for errors and panic, if found
-func CheckForErrors(e ErrorParams) {
+func PrintErrors(e ErrorParams) {
 	if e.Err != nil {
 		pc, fn, line, _ := runtime.Caller(e.CallerNum)
 		msg := ""
@@ -24,6 +25,11 @@ func CheckForErrors(e ErrorParams) {
 			msg = fmt.Sprintf("[Error] in %s[%s:%d] %v",
 				runtime.FuncForPC(pc).Name(), fn, line, e.Err)
 		}
-		log.Fatal(msg)
+		switch e.Fatal {
+		case true:
+			log.Fatal(msg)
+		default:
+			log.Println(msg)
+		}
 	}
 }

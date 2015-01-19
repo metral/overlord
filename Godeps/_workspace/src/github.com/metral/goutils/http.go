@@ -13,7 +13,7 @@ type HttpRequestParams struct {
 	Headers         map[string]string
 }
 
-func HttpCreateRequest(p HttpRequestParams) (int, []byte) {
+func HttpCreateRequest(p HttpRequestParams) (int, []byte, error) {
 	var req *http.Request
 	var statusCode int
 	var dataBytes, bodyBuffer bytes.Buffer
@@ -33,14 +33,17 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
+	if err != nil {
+		PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+		return -1, bodyBuffer.Bytes(), err
+	}
 
 	switch resp.StatusCode {
 	case http.StatusTemporaryRedirect:
 		u, err := resp.Location()
 
 		if err != nil {
-			CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
+			PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 		} else {
 			p.Url = u.String()
 			HttpCreateRequest(p)
@@ -49,9 +52,9 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte) {
 		statusCode = resp.StatusCode
 
 		body, err := ioutil.ReadAll(resp.Body)
-		CheckForErrors(ErrorParams{Err: err, CallerNum: 2})
+		PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 		bodyBuffer = *bytes.NewBuffer(body)
 	}
 	defer resp.Body.Close()
-	return statusCode, bodyBuffer.Bytes()
+	return statusCode, bodyBuffer.Bytes(), nil
 }

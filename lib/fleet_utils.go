@@ -78,7 +78,8 @@ func createMasterUnits(
 	// Form download service file from template
 	readfile, err := ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["download"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	download := string(readfile)
 	download = strings.Replace(download, "<ID>", fleetMachine.ID, -1)
 
@@ -92,13 +93,15 @@ func createMasterUnits(
 	download_file := fmt.Sprintf("%s/%s",
 		unitPathInfo[0]["path"], filename)
 	err = ioutil.WriteFile(download_file, []byte(download), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, download_file)
 
 	// Form apiserver service file from template
 	readfile, err = ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["api"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	apiserver := string(readfile)
 	apiserver = strings.Replace(apiserver, "<ID>", fleetMachine.ID, -1)
 	apiserver = strings.Replace(apiserver, "<IP_ADDR>", fleetMachine.PublicIP, -1)
@@ -107,13 +110,15 @@ func createMasterUnits(
 	filename = strings.Replace(files["api"], "@", "@"+fleetMachine.ID, -1)
 	apiserver_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
 	err = ioutil.WriteFile(apiserver_file, []byte(apiserver), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, apiserver_file)
 
 	// Form controller service file from template
 	readfile, err = ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["controller"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	controller := string(readfile)
 	controller = strings.Replace(controller, "<ID>", fleetMachine.ID, -1)
 
@@ -121,13 +126,15 @@ func createMasterUnits(
 	filename = strings.Replace(files["controller"], "@", "@"+fleetMachine.ID, -1)
 	controller_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
 	err = ioutil.WriteFile(controller_file, []byte(controller), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, controller_file)
 
 	// Form scheduler service file from template
 	readfile, err = ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["scheduler"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	scheduler := string(readfile)
 	scheduler = strings.Replace(scheduler, "<ID>", fleetMachine.ID, -1)
 
@@ -135,7 +142,8 @@ func createMasterUnits(
 	filename = strings.Replace(files["scheduler"], "@", "@"+fleetMachine.ID, -1)
 	scheduler_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
 	err = ioutil.WriteFile(scheduler_file, []byte(scheduler), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, scheduler_file)
 
 	return createdFiles
@@ -155,7 +163,8 @@ func createMinionUnits(fleetMachine *FleetMachine,
 	// Form download service file from template
 	readfile, err := ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["download"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	download := string(readfile)
 	download = strings.Replace(download, "<ID>", fleetMachine.ID, -1)
 
@@ -169,13 +178,15 @@ func createMinionUnits(fleetMachine *FleetMachine,
 	download_file := fmt.Sprintf("%s/%s",
 		unitPathInfo[0]["path"], filename)
 	err = ioutil.WriteFile(download_file, []byte(download), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, download_file)
 
 	// Form kubelet service file from template
 	readfile, err = ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["kubelet"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	kubelet := string(readfile)
 	kubelet = strings.Replace(kubelet, "<ID>", fleetMachine.ID, -1)
 	kubelet = strings.Replace(kubelet, "<IP_ADDR>", fleetMachine.PublicIP, -1)
@@ -184,13 +195,15 @@ func createMinionUnits(fleetMachine *FleetMachine,
 	filename = strings.Replace(files["kubelet"], "@", "@"+fleetMachine.ID, -1)
 	kubelet_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
 	err = ioutil.WriteFile(kubelet_file, []byte(kubelet), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, kubelet_file)
 
 	// Form proxy service file from template
 	readfile, err = ioutil.ReadFile(
 		fmt.Sprintf("/templates/%s", files["proxy"]))
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	proxy := string(readfile)
 	proxy = strings.Replace(proxy, "<ID>", fleetMachine.ID, -1)
 
@@ -198,7 +211,8 @@ func createMinionUnits(fleetMachine *FleetMachine,
 	filename = strings.Replace(files["proxy"], "@", "@"+fleetMachine.ID, -1)
 	proxy_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
 	err = ioutil.WriteFile(proxy_file, []byte(proxy), 0644)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, proxy_file)
 
 	return createdFiles
@@ -212,7 +226,8 @@ func createUnitFiles(fleetMachine *FleetMachine) []string {
 
 	for _, v := range unitPathInfo {
 		err := os.RemoveAll(v["path"])
-		goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+		goutils.PrintErrors(
+			goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 		os.MkdirAll(v["path"], perm)
 	}
@@ -277,9 +292,10 @@ func getUnitState(unitFile string) FleetUnitState {
 		Headers:         headers,
 	}
 
-	_, jsonResponse := goutils.HttpCreateRequest(p)
+	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, &fleetUnitStates)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	for _, unitState := range fleetUnitStates.States {
 		if unitState.Name == filename {
@@ -308,7 +324,8 @@ func startUnitFile(unitFile string) {
 	statusCode := 0
 	for statusCode != 204 {
 		readfile, err := ioutil.ReadFile(unitFile)
-		goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+		goutils.PrintErrors(
+			goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 		content := string(readfile)
 		u, _ := unit.NewUnitFile(content)
@@ -331,7 +348,7 @@ func startUnitFile(unitFile string) {
 			Data:            json_str,
 			Headers:         headers,
 		}
-		statusCode, _ = goutils.HttpCreateRequest(p)
+		statusCode, _, _ = goutils.HttpCreateRequest(p)
 
 		time.Sleep(1 * time.Second)
 		/*
@@ -342,7 +359,8 @@ func startUnitFile(unitFile string) {
 			body, err := ioutil.ReadAll(resp.Body)
 			log.Printf("Status Code: %s", statusCode)
 			log.Printf("[Error] in HTTP Body: %s - %v", body, err)
-			goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+			goutils.PrintErrors(
+				goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 		*/
 	}
 }

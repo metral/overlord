@@ -60,9 +60,10 @@ func getFleetMachines(fleetResult *Result) {
 		Headers:         headers,
 	}
 
-	_, jsonResponse := goutils.HttpCreateRequest(p)
+	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, fleetResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	removeOverlord(&fleetResult.Node.Nodes)
 }
@@ -88,14 +89,16 @@ func getMachinesSeen() []string {
 		Headers:         headers,
 	}
 
-	_, jsonResponse := goutils.HttpCreateRequest(p)
+	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, &machinesSeenResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	var machinesSeen []string
 	var machinesSeenBytes []byte = []byte(machinesSeenResult.Node.Value)
 	err = json.Unmarshal(machinesSeenBytes, &machinesSeen)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	return machinesSeen
 }
@@ -163,15 +166,17 @@ func waitForMetadata(
 		Headers:         headers,
 	}
 
-	_, jsonResponse := goutils.HttpCreateRequest(p)
+	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 
 	var nodeResult NodeResult
 	err := json.Unmarshal(jsonResponse, &nodeResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	err = json.Unmarshal(
 		[]byte(nodeResult.Node.Value), &fleetMachine)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	for len(fleetMachine.Metadata) == 0 ||
 		fleetMachine.Metadata["kubernetes_role"] == nil {
@@ -181,7 +186,8 @@ func waitForMetadata(
 
 		err = json.Unmarshal(
 			[]byte(nodeResult.Node.Value), &fleetMachine)
-		goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+		goutils.PrintErrors(
+			goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	}
 }

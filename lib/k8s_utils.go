@@ -71,12 +71,13 @@ func registerMinions(master *FleetMachine, minions *FleetMachines) {
 		Headers:         headers,
 	}
 
-	_, jsonResponse := goutils.HttpCreateRequest(p)
+	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 	m := *minions
 
 	var minionsResult MinionsResult
 	err := json.Unmarshal(jsonResponse, &minionsResult)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	// See if minions discovered have been registered. If not, register
 	for _, minion := range m {
@@ -102,7 +103,8 @@ func register(endpoint, addr string) error {
 		HostIP:     addr,
 	}
 	data, err := json.Marshal(m)
-	goutils.CheckForErrors(goutils.ErrorParams{Err: err, CallerNum: 2})
+	goutils.PrintErrors(
+		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
 	url := fmt.Sprintf("%s/api/%s/minions", endpoint, K8S_API_VERSION)
 
@@ -116,7 +118,7 @@ func register(endpoint, addr string) error {
 		Data:            data,
 		Headers:         headers,
 	}
-	statusCode, _ := goutils.HttpCreateRequest(p)
+	statusCode, _, _ := goutils.HttpCreateRequest(p)
 
 	switch statusCode {
 	case 200, 202:
