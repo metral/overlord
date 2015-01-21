@@ -34,7 +34,6 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 		return -1, bodyBuffer.Bytes(), err
 	}
 
@@ -43,16 +42,13 @@ func HttpCreateRequest(p HttpRequestParams) (int, []byte, error) {
 		u, err := resp.Location()
 
 		if err != nil {
-			PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
-		} else {
 			p.Url = u.String()
 			HttpCreateRequest(p)
 		}
 	default:
 		statusCode = resp.StatusCode
 
-		body, err := ioutil.ReadAll(resp.Body)
-		PrintErrors(ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+		body, _ := ioutil.ReadAll(resp.Body)
 		bodyBuffer = *bytes.NewBuffer(body)
 	}
 	defer resp.Body.Close()
