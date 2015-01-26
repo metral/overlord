@@ -4,18 +4,18 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/coreos/fleet/log",
-			"Comment": "v0.8.3",
-			"Rev": "647eca78638168d650bfe34614cef1f064e770bb"
+			"Comment": "v0.9.0",
+			"Rev": "2d5c6bb0751ad3a50c0a219158439071a59e549f"
 		},
 		{
 			"ImportPath": "github.com/coreos/fleet/pkg",
-			"Comment": "v0.8.3",
-			"Rev": "647eca78638168d650bfe34614cef1f064e770bb"
+			"Comment": "v0.9.0",
+			"Rev": "2d5c6bb0751ad3a50c0a219158439071a59e549f"
 		},
 		{
 			"ImportPath": "github.com/coreos/fleet/unit",
-			"Comment": "v0.8.3",
-			"Rev": "647eca78638168d650bfe34614cef1f064e770bb"
+			"Comment": "v0.9.0",
+			"Rev": "2d5c6bb0751ad3a50c0a219158439071a59e549f"
 		},
 		{
 			"ImportPath": "github.com/coreos/go-systemd/unit",
