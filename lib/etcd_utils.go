@@ -92,13 +92,13 @@ func getMachinesSeen() []string {
 	_, jsonResponse, _ := goutils.HttpCreateRequest(p)
 	err := json.Unmarshal(jsonResponse, &machinesSeenResult)
 	goutils.PrintErrors(
-		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+		goutils.ErrorParams{Err: err, CallerNum: 1, Fatal: false})
 
 	var machinesSeen []string
 	var machinesSeenBytes []byte = []byte(machinesSeenResult.Node.Value)
 	err = json.Unmarshal(machinesSeenBytes, &machinesSeen)
 	goutils.PrintErrors(
-		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+		goutils.ErrorParams{Err: err, CallerNum: 1, Fatal: false})
 
 	return machinesSeen
 }
