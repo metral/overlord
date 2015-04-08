@@ -40,20 +40,21 @@ func removeOverlord(nodes *ResultNodes) {
 func Main() {
 	fleetResult := Result{}
 	var f *Result = &fleetResult
-	//master := FleetMachine{}
-	//minions := FleetMachines{}
 
 	setMachinesSeen([]string{})
-	time.Sleep(1 * time.Second)
 
 	// Get Fleet machines
 	var masterFleetMachine FleetMachine
-	var createdFiles []string
+	var createdFiles, allMachinesSeen []string
 	for {
 		getFleetMachines(f)
-		allMachinesSeen := getMachinesSeen()
+
+		totalSeen := len(allMachinesSeen)
+		log.Printf("------------------------------------------------------------")
+		log.Printf("Current # of machines seen/deployed to: (%d)\n", totalSeen)
+
 		totalMachines := len(f.Node.Nodes)
-		log.Printf("------------------------------------------------")
+		log.Printf("------------------------------------------------------------")
 		log.Printf("Current # of machines discovered: (%d)\n", totalMachines)
 
 		var fleetMachine FleetMachine
@@ -69,7 +70,7 @@ func Main() {
 			if !machineSeen(allMachinesSeen, fleetMachine.ID) &&
 				masterFleetMachine.ID != "" {
 
-				log.Printf("------------------------------------------------")
+				log.Printf("------------------------------------------------------------")
 				log.Printf("Found machine:\n")
 				fleetMachine.PrintString()
 
@@ -99,5 +100,6 @@ func Main() {
 		}
 
 		time.Sleep(1 * time.Second)
+		allMachinesSeen = getMachinesSeen()
 	}
 }

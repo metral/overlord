@@ -6,16 +6,18 @@ import (
 	"log"
 	"time"
 
+	"github.com/GoogleCloudPlatform/kubernetes/pkg/api/v1beta3"
 	"github.com/metral/goutils"
 )
 
-var K8S_API_VERSION string = "v1beta3"
+var K8S_API_VERSION string = "v1beta2"
 var K8S_API_PORT string = "8080"
 
 type PreregisteredKNode struct {
-	Kind       string            `json:"kind,omitempty"`
-	Metadata   map[string]string `json:"metadata,omitempty"`
-	APIVersion string            `json:"apiVersion,omitempty"`
+	Kind       string             `json:"kind,omitempty"`
+	Id         string             `json:"id,omitempty"`
+	Status     v1beta3.NodeStatus `json:"status,omitempty"`
+	APIVersion string             `json:"apiVersion,omitempty"`
 }
 
 type KNodesResult struct {
@@ -94,9 +96,18 @@ func registerKNodes(master *FleetMachine, node *FleetMachine) {
 }
 
 func register(endpoint, addr string) error {
+	status := v1beta3.NodeStatus{}
+	status.Addresses = []v1beta3.NodeAddress{
+		v1beta3.NodeAddress{
+			Address: addr,
+			Type:    v1beta3.NodeInternalIP,
+		},
+	}
+
 	m := &PreregisteredKNode{
 		Kind:       "Node",
-		Metadata:   map[string]string{"name": addr},
+		Id:         addr,
+		Status:     status,
 		APIVersion: K8S_API_VERSION,
 	}
 	data, err := json.Marshal(m)
@@ -115,14 +126,14 @@ func register(endpoint, addr string) error {
 		Data:            data,
 		Headers:         headers,
 	}
-	//statusCode, _, _ := goutils.HttpCreateRequest(p)
-	statusCode, body, err := goutils.HttpCreateRequest(p)
-	log.Printf("%d\n%s\n%v", statusCode, body, err)
+
+	statusCode, _, _ := goutils.HttpCreateRequest(p)
+	//statusCode, body, err := goutils.HttpCreateRequest(p)
+	//log.Printf("%d\n%s\n%v", statusCode, body, err)
 
 	switch statusCode {
-	case 200, 202:
-		log.Printf("------------------------------------------------")
-		log.Printf("Registered node with the master: %s\n", addr)
+	case 200, 201, 202:
+		log.Printf("Registered node with the Kubernetes master: %s\n", addr)
 		return nil
 	case 409:
 		return nil
