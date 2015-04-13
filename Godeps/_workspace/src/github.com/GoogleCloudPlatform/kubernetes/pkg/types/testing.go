@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Google Inc. All rights reserved.
+Copyright 2015 Google Inc. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package flushwriter implements a wrapper for a writer that flushes on every
-// write if that writer implements the io.Flusher interface
-package flushwriter
+package types
+
+import "fmt"
+
+func NewNamespacedNameOrDie(namespace, name string) (ret NamespacedName) {
+	if len(namespace) == 0 || len(name) == 0 {
+		panic(fmt.Sprintf("invalid call to NewNamespacedNameOrDie(%q, %q)", namespace, name))
+	}
+	return NamespacedName{namespace, name}
+}

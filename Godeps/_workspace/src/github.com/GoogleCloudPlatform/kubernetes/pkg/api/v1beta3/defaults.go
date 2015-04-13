@@ -52,18 +52,12 @@ func init() {
 				obj.TerminationMessagePath = TerminationMessagePathDefault
 			}
 		},
-		func(obj *ServiceSpec) {
-			if obj.SessionAffinity == "" {
-				obj.SessionAffinity = AffinityTypeNone
+		func(obj *Service) {
+			if obj.Spec.Protocol == "" {
+				obj.Spec.Protocol = ProtocolTCP
 			}
-			for i := range obj.Ports {
-				sp := &obj.Ports[i]
-				if sp.Protocol == "" {
-					sp.Protocol = ProtocolTCP
-				}
-				if sp.TargetPort == util.NewIntOrStringFromInt(0) || sp.TargetPort == util.NewIntOrStringFromString("") {
-					sp.TargetPort = util.NewIntOrStringFromInt(sp.Port)
-				}
+			if obj.Spec.SessionAffinity == "" {
+				obj.Spec.SessionAffinity = AffinityTypeNone
 			}
 		},
 		func(obj *PodSpec) {
@@ -101,6 +95,12 @@ func init() {
 		func(obj *HTTPGetAction) {
 			if obj.Path == "" {
 				obj.Path = "/"
+			}
+		},
+		func(obj *ServiceSpec) {
+			if obj.TargetPort.Kind == util.IntstrInt && obj.TargetPort.IntVal == 0 ||
+				obj.TargetPort.Kind == util.IntstrString && obj.TargetPort.StrVal == "" {
+				obj.TargetPort = util.NewIntOrStringFromInt(obj.Port)
 			}
 		},
 		func(obj *NamespaceStatus) {

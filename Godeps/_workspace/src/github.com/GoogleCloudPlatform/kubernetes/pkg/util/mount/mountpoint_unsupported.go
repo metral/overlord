@@ -1,4 +1,4 @@
-// +build !linux
+// +build windows
 
 /*
 Copyright 2014 Google Inc. All rights reserved.
@@ -18,19 +18,11 @@ limitations under the License.
 
 package mount
 
-const FlagBind = 0
-const FlagReadOnly = 0
+import (
+	"fmt"
+)
 
-type Mounter struct{}
-
-func (mounter *Mounter) Mount(source string, target string, fstype string, flags uintptr, data string) error {
-	return nil
-}
-
-func (mounter *Mounter) Unmount(target string, flags int) error {
-	return nil
-}
-
-func (mounter *Mounter) List() ([]MountPoint, error) {
-	return []MountPoint{}, nil
+// Dummy implementation for Windows
+func IsMountPoint(file string) (bool, error) {
+	return false, fmt.Errorf("unimplemented")
 }
