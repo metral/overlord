@@ -1,0 +1,9 @@
+{
+"binariesUrl": "http://402691ee5556ad7180c2-51ea3506d0c0b971c0a9dae624b8b3c7.r39.cf1.rackcdn.com",
+"kubernetesAPIVersion": "v1beta2",
+"kubernetesAPIPort": "8080",
+"fleetAPIVersion": "v1-alpha",
+"fleetAPIPort": "10001",
+"etcdAPIVersion": "v2",
+"etcdClientPort": "4001"
+}

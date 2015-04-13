@@ -6,7 +6,9 @@ Requires=master-download-kubernetes@<ID>.service
 
 [Service]
 ExecStart=/opt/bin/kube-scheduler \
---master=127.0.0.1:8080
+--api_version=<K8S_API_VERSION> \
+--master=127.0.0.1:8080 \
+--logtostderr=true
 Restart=always
 RestartSec=2
 

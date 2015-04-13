@@ -10,9 +10,6 @@ import (
 	"github.com/metral/goutils"
 )
 
-var K8S_API_VERSION string = "v1beta2"
-var K8S_API_PORT string = "8080"
-
 type PreregisteredKNode struct {
 	Kind       string             `json:"kind,omitempty"`
 	Id         string             `json:"id,omitempty"`
@@ -62,8 +59,8 @@ func isMinion(fleetMachine *FleetMachine) bool {
 func registerKNodes(master *FleetMachine, node *FleetMachine) {
 
 	// Get registered nodes, if any
-	endpoint := fmt.Sprintf("http://%s:%s", master.PublicIP, K8S_API_PORT)
-	masterAPIurl := fmt.Sprintf("%s/api/%s/nodes", endpoint, K8S_API_VERSION)
+	endpoint := fmt.Sprintf("http://%s:%s", master.PublicIP, Conf.KubernetesAPIPort)
+	masterAPIurl := fmt.Sprintf("%s/api/%s/nodes", endpoint, Conf.KubernetesAPIVersion)
 
 	headers := map[string]string{
 		"Content-Type": "application/json",
@@ -108,13 +105,13 @@ func register(endpoint, addr string) error {
 		Kind:       "Node",
 		Id:         addr,
 		Status:     status,
-		APIVersion: K8S_API_VERSION,
+		APIVersion: Conf.KubernetesAPIVersion,
 	}
 	data, err := json.Marshal(m)
 	goutils.PrintErrors(
 		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
-	url := fmt.Sprintf("%s/api/%s/nodes", endpoint, K8S_API_VERSION)
+	url := fmt.Sprintf("%s/api/%s/nodes", endpoint, Conf.KubernetesAPIVersion)
 
 	headers := map[string]string{
 		"Content-Type": "application/json",

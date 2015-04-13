@@ -11,9 +11,6 @@ import (
 	"github.com/metral/goutils"
 )
 
-var ETCD_API_VERSION string = "v2"
-var ETCD_CLIENT_PORT string = "4001"
-
 type Result struct {
 	Action string
 	Node   ResultNode
@@ -48,8 +45,8 @@ func getEtcdAPI(host string, port string) string {
 }
 
 func getFleetMachines(fleetResult *Result) {
-	path := fmt.Sprintf("%s/keys/_coreos.com/fleet/machines", ETCD_API_VERSION)
-	url := getFullAPIURL(ETCD_CLIENT_PORT, path)
+	path := fmt.Sprintf("%s/keys/_coreos.com/fleet/machines", Conf.EtcdAPIVersion)
+	url := getFullAPIURL(Conf.EtcdClientPort, path)
 
 	headers := map[string]string{
 		"Content-Type": "application/json",
@@ -77,8 +74,8 @@ func getFullAPIURL(port, etcdAPIPath string) string {
 func getMachinesSeen() []string {
 	var machinesSeenResult NodeResult
 
-	path := fmt.Sprintf("%s/keys/seen", ETCD_API_VERSION)
-	urlStr := getFullAPIURL(ETCD_CLIENT_PORT, path)
+	path := fmt.Sprintf("%s/keys/seen", Conf.EtcdAPIVersion)
+	urlStr := getFullAPIURL(Conf.EtcdClientPort, path)
 
 	headers := map[string]string{
 		"Content-Type": "application/json",
@@ -116,8 +113,8 @@ func machineSeen(allMachinesSeen []string, id string) bool {
 }
 
 func setMachinesSeen(machines []string) {
-	path := fmt.Sprintf("%s/keys/seen", ETCD_API_VERSION)
-	urlStr := getFullAPIURL(ETCD_CLIENT_PORT, path)
+	path := fmt.Sprintf("%s/keys/seen", Conf.EtcdAPIVersion)
+	urlStr := getFullAPIURL(Conf.EtcdClientPort, path)
 	data := ""
 
 	switch machines {
@@ -152,9 +149,9 @@ func waitForMetadata(
 	// Issue request to get machines & parse it. Sleep if cluster not ready yet
 	id := strings.Split(resultNode.Key, "fleet/machines/")[1]
 	path := fmt.Sprintf(
-		"%s/keys/_coreos.com/fleet/machines/%s/object", ETCD_API_VERSION, id)
+		"%s/keys/_coreos.com/fleet/machines/%s/object", Conf.EtcdAPIVersion, id)
 
-	url := getFullAPIURL(ETCD_CLIENT_PORT, path)
+	url := getFullAPIURL(Conf.EtcdClientPort, path)
 
 	headers := map[string]string{
 		"Content-Type": "application/json",
