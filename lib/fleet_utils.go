@@ -274,7 +274,7 @@ func getUnitState(unitFile string) FleetUnitState {
 	var fleetUnitStates FleetUnitStates
 	filename := filepath.Base(unitFile)
 
-	urlPath := fmt.Sprintf("%s/state", Conf.FleetAPIVersion)
+	urlPath := fmt.Sprintf("fleet/%s/state", Conf.FleetAPIVersion)
 	url := getFullAPIURL(Conf.FleetAPIPort, urlPath)
 
 	headers := map[string]string{
@@ -310,7 +310,7 @@ func lowerCasingOfUnitOptionsStr(json_str string) string {
 func startUnitFile(unitFile string) {
 	filename := filepath.Base(unitFile)
 	unitFilepath := fmt.Sprintf(
-		"%s/units/%s", Conf.FleetAPIVersion, filename)
+		"fleet/%s/units/%s", Conf.FleetAPIVersion, filename)
 	url := getFullAPIURL(Conf.FleetAPIPort, unitFilepath)
 
 	log.Printf("Starting unit file: %s", filename)
