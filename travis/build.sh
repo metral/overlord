@@ -13,6 +13,9 @@ pushd $HOME/corekube
 echo "corekube commit: `git rev-parse --short HEAD`"
 popd
 
+# Copy conf.json from overlord PR/commit in this current Travis environment to
+# /tmp where overlord's lib expects it - we use lib in the overlord_test to
+# piece together the K8s Master API to GET the nodes in the cluster
 mkdir -p /tmp/
 cp $HOME/gopath/src/github.com/metral/overlord/conf.json /tmp/
 
