@@ -1,6 +1,6 @@
 {
-"binariesUrl": "http://402691ee5556ad7180c2-51ea3506d0c0b971c0a9dae624b8b3c7.r39.cf1.rackcdn.com",
-"kubernetesAPIVersion": "v1beta2",
+"binariesUrl": "http://3e4970b5f050b3eac49b-24f5724bed79bd68ec5729443690bd11.r17.cf1.rackcdn.com",
+"kubernetesAPIVersion": "v1beta3",
 "kubernetesAPIPort": "8080",
 "fleetAPIVersion": "v1",
 "fleetAPIPort": "10001",
