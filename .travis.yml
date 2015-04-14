@@ -6,6 +6,7 @@ go:
 branches:
   only:
     - master
+    - dev
 
 install:
     - ./travis/build.sh
