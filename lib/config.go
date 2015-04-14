@@ -17,8 +17,13 @@ type VersionsConf struct {
 
 var Conf = new(VersionsConf)
 
+var (
+	conf_file = "/tmp/conf.json"
+)
+
 func init() {
-	file, _ := os.Open("/conf.json")
+	file, _ := os.Open(conf_file)
 	json.NewDecoder(file).Decode(Conf)
+
 	file.Close()
 }
