@@ -72,7 +72,7 @@
 		},
 		{
 			"ImportPath": "github.com/davecgh/go-spew/spew",
-			"Rev": "fc32781af5e85e548d3f1abaf0fa3dbe8a72495c"
+			"Rev": "3e6e67c4dcea3ac2f25fd4731abc0e1deaf36216"
 		},
 		{
 			"ImportPath": "github.com/ghodss/yaml",
@@ -100,7 +100,7 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net/context",
-			"Rev": "6460565bec1e8891e29ff478184c71b9e443ac36"
+			"Rev": "84ba27dd5b2d8135e9da1395277f2c9333a2ffda"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
