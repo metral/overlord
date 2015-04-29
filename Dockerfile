@@ -1,4 +1,4 @@
-FROM google/golang:stable
+FROM google/golang:1.4
 
 RUN apt-get update -y
 RUN apt-get install net-tools -y
