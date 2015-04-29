@@ -6,7 +6,6 @@ Requires=minion-download-kubernetes@<ID>.service
 
 [Service]
 ExecStart=/opt/bin/kube-proxy \
---api_version=<K8S_API_VERSION> \
 --master=<MASTER_IP_PORT> \
 --logtostderr=true
 Restart=always

@@ -6,7 +6,6 @@ Requires=master-download-kubernetes@<ID>.service
 
 [Service]
 ExecStart=/opt/bin/kube-controller-manager \
---api_version=<K8S_API_VERSION> \
 --master=127.0.0.1:8080 \
 --logtostderr=true
 Restart=always
