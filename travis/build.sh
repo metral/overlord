@@ -11,7 +11,9 @@ go get github.com/tools/godep
 # parameter.
 git clone https://github.com/metral/corekube $HOME/corekube
 pushd $HOME/corekube
+echo "========================================"
 echo "corekube commit: `git rev-parse --short HEAD`"
+echo "========================================"
 popd
 
 # Copy conf.json from overlord PR/commit in this current Travis environment to
@@ -28,6 +30,8 @@ cp $HOME/gopath/src/github.com/metral/overlord/conf.json /tmp/
 # of the git-command.
 git clone https://github.com/metral/corekube_travis
 pushd corekube_travis/overlord_test
+echo "========================================"
 echo "corekube_travis commit: `git rev-parse --short HEAD`"
+echo "========================================"
 godep get ./...
 popd
