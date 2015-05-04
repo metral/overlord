@@ -6,4 +6,4 @@ $HOME/gopath/bin/overlord_test \
     --password=$TRAVIS_OS_PASSWORD \
     --username=$TRAVIS_OS_USERNAME \
     --tenantId=$TRAVIS_OS_TENANT_ID \
-    --templateFile="$HOME/corekube/corekube-heat.yaml"
+    --templateFile="$HOME/corekube/corekube-cloudservers.yaml"
