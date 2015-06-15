@@ -52,18 +52,18 @@
 		},
 		{
 			"ImportPath": "github.com/coreos/fleet/log",
-			"Comment": "v0.9.1",
-			"Rev": "037e9996d85f4c4a9c66b891b7343acf533aa28d"
+			"Comment": "v0.10.1",
+			"Rev": "dc1d8e82dc07151297d8a2396dcf52e703d48f20"
 		},
 		{
 			"ImportPath": "github.com/coreos/fleet/pkg",
-			"Comment": "v0.9.1",
-			"Rev": "037e9996d85f4c4a9c66b891b7343acf533aa28d"
+			"Comment": "v0.10.1",
+			"Rev": "dc1d8e82dc07151297d8a2396dcf52e703d48f20"
 		},
 		{
 			"ImportPath": "github.com/coreos/fleet/unit",
-			"Comment": "v0.9.1",
-			"Rev": "037e9996d85f4c4a9c66b891b7343acf533aa28d"
+			"Comment": "v0.10.1",
+			"Rev": "dc1d8e82dc07151297d8a2396dcf52e703d48f20"
 		},
 		{
 			"ImportPath": "github.com/coreos/go-systemd/unit",
