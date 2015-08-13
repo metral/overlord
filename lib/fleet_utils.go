@@ -134,26 +134,17 @@ func createMasterUnits(fleetMachine *FleetMachine) []string {
 		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, scheduler_file)
 
-	// Establish file paths
-	currentDir, err := os.Getwd()
-	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
-	rc_file := fmt.Sprintf("%s/examples/dns/skydns-rc.yaml", currentDir)
-	svc_file := fmt.Sprintf("%s/examples/dns/skydns-svc.yaml", currentDir)
-
-	// Replace master IP placeholder in RC file with real val
-	readfile, err = ioutil.ReadFile(rc_file)
-	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
-	rc_content := strings.Replace(string(readfile), "MASTER_IP", fleetMachine.PublicIP, -1)
-	err = ioutil.WriteFile(rc_file, []byte(rc_content), 0644)
-	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
-
 	// Substitute the machine ID and file paths into systemd file
-	filename = strings.Replace(files["skydns"], "@", "@"+fleetMachine.ID, -1)
-	dns_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
-	readfile, err = ioutil.ReadFile(filename)
+	filename = strings.Replace(files["dns"], "@", "@"+fleetMachine.ID, -1)
+	dns_file := fmt.Sprintf("%s/%s", unitPathInfo[0]["path"], filename)
+	readfile, err = ioutil.ReadFile(fmt.Sprintf("/templates/%s", files["dns"]))
 	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
-	dns_content := strings.Replace(string(readfile), "<RC_FILE>", rc_file, -1)
-	dns_content = strings.Replace(dns_content, "<SVC_FILE>", svc_file, -1)
+
+	dns_content := strings.Replace(string(readfile), "<RC_URL>", Conf.SkyDNSRepContr, -1)
+	dns_content = strings.Replace(dns_content, "<SVC_URL>", Conf.SkyDNSService, -1)
+	dns_content = strings.Replace(dns_content, "<ID>", fleetMachine.ID, -1)
+	dns_content = strings.Replace(dns_content, "<MASTER_IP>", fleetMachine.PublicIP, -1)
+
 	err = ioutil.WriteFile(dns_file, []byte(dns_content), 0644)
 	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, dns_file)
