@@ -1,0 +1,14 @@
+[Unit]
+ConditionFileIsExecutable=/opt/bin/kubectl
+After=master-download-kubernetes<ID>.service
+Description=Run SkyDNS service
+Requires=master-download-kubernetes<ID>.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/bin/kubectl create -f <RC_FILE>
+ExecStart=/opt/bin/kubectl create -f <SVC_FILE>
+
+[X-Fleet]
+MachineMetadata=kubernetes_role=master
+MachineID=<ID>

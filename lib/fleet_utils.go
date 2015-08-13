@@ -62,6 +62,7 @@ func createMasterUnits(fleetMachine *FleetMachine) []string {
 		"controller": "master-controller-manager@.service",
 		"scheduler":  "master-scheduler@.service",
 		"download":   "master-download-kubernetes@.service",
+		"dns":        "master-dns@.service",
 	}
 
 	createdFiles := []string{}
@@ -132,6 +133,30 @@ func createMasterUnits(fleetMachine *FleetMachine) []string {
 	goutils.PrintErrors(
 		goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 	createdFiles = append(createdFiles, scheduler_file)
+
+	// Establish file paths
+	currentDir, err := os.Getwd()
+	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+	rc_file := fmt.Sprintf("%s/examples/dns/skydns-rc.yaml", currentDir)
+	svc_file := fmt.Sprintf("%s/examples/dns/skydns-svc.yaml", currentDir)
+
+	// Replace master IP placeholder in RC file with real val
+	readfile, err = ioutil.ReadFile(rc_file)
+	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+	rc_content := strings.Replace(string(readfile), "MASTER_IP", fleetMachine.PublicIP, -1)
+	err = ioutil.WriteFile(rc_file, []byte(rc_content), 0644)
+	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+
+	// Substitute the machine ID and file paths into systemd file
+	filename = strings.Replace(files["skydns"], "@", "@"+fleetMachine.ID, -1)
+	dns_file := fmt.Sprintf("%s/%s", unitPathInfo[1]["path"], filename)
+	readfile, err = ioutil.ReadFile(filename)
+	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+	dns_content := strings.Replace(string(readfile), "<RC_FILE>", rc_file, -1)
+	dns_content = strings.Replace(dns_content, "<SVC_FILE>", svc_file, -1)
+	err = ioutil.WriteFile(dns_file, []byte(dns_content), 0644)
+	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
+	createdFiles = append(createdFiles, dns_file)
 
 	log.Printf("Created all unit files for: %s\n", fleetMachine.ID)
 	return createdFiles
