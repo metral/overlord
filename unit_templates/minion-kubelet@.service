@@ -10,7 +10,9 @@ ExecStart=/opt/bin/kubelet \
 --port=10250 \
 --hostname_override=<IP_ADDR> \
 --api_servers=<MASTER_IP_PORT> \
---logtostderr=true
+--logtostderr=true \
+--cluster-dns=10.1.0.10 \
+--cluster-domain=kube.local
 Restart=always
 RestartSec=2
 
