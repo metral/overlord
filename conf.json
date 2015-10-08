@@ -6,6 +6,6 @@
 "fleetAPIPort": "10001",
 "etcdAPIVersion": "v2",
 "etcdClientPort": "4001",
-"skyDNSSVC": "https://gist.githubusercontent.com/jamiehannaford/b80465bf7d427b949542/raw/d5d8a66830b5848bf16ac209f6504ebc841ff22c/skydns-svc.yaml",
-"skyDNSRC": "https://gist.githubusercontent.com/jamiehannaford/850900e2d721a973bc6d/raw/2705edcbc9364c71c2e55af7a773e73f077bd578/skydns-rc.yaml"
+"skyDNSSVC": "https://raw.githubusercontent.com/metral/overlord/dns/examples/dns/skydns-svc.yaml",
+"skyDNSRC": "https://raw.githubusercontent.com/metral/overlord/dns/examples/dns/skydns-rc.yaml"
 }
