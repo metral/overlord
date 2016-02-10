@@ -1,11 +1,12 @@
 {
-"binariesUrl": "http://14fc489f976dcd8d88c8-05526a7e44c3cc2c5c5287f16a2bbc31.r21.cf1.rackcdn.com",
+"binariesUrl": "https://2c2ee24140d3b4971f29-39262d6c9f843c39e2b92cdc9b9a826c.ssl.cf1.rackcdn.com",
 "kubernetesAPIVersion": "v1",
 "kubernetesAPIPort": "8080",
 "fleetAPIVersion": "v1",
 "fleetAPIPort": "10001",
 "etcdAPIVersion": "v2",
 "etcdClientPort": "4001",
-"skyDNSSVC": "https://raw.githubusercontent.com/metral/overlord/dns/examples/dns/skydns-svc.yaml",
-"skyDNSRC": "https://raw.githubusercontent.com/metral/overlord/dns/examples/dns/skydns-rc.yaml"
+"skyDNSSVC": "https://raw.githubusercontent.com/metral/overlord/master/examples/dns/skydns-svc.yaml",
+"kubeSystemNS": "https://raw.githubusercontent.com/metral/overlord/master/examples/dns/kube-system-ns.yaml",
+"skyDNSRC": "https://raw.githubusercontent.com/metral/overlord/master/examples/dns/skydns-rc.yaml"
 }

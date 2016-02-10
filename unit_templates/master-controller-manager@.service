@@ -7,6 +7,7 @@ Requires=master-download-kubernetes@<ID>.service
 [Service]
 ExecStart=/opt/bin/kube-controller-manager \
 --master=127.0.0.1:8080 \
+--service_account_private_key_file=/tmp/kube-serviceaccount.key \
 --logtostderr=true
 Restart=always
 RestartSec=2

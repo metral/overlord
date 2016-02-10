@@ -140,7 +140,8 @@ func createMasterUnits(fleetMachine *FleetMachine) []string {
 	readfile, err = ioutil.ReadFile(fmt.Sprintf("/templates/%s", files["dns"]))
 	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
-	dns_content := strings.Replace(string(readfile), "<RC_URL>", Conf.SkyDNSRepContr, -1)
+	dns_content := strings.Replace(string(readfile), "<NS_URL>", Conf.KubeSystemNamespace, -1)
+	dns_content = strings.Replace(dns_content, "<RC_URL>", Conf.SkyDNSRepContr, -1)
 	dns_content = strings.Replace(dns_content, "<SVC_URL>", Conf.SkyDNSService, -1)
 	dns_content = strings.Replace(dns_content, "<ID>", fleetMachine.ID, -1)
 	dns_content = strings.Replace(dns_content, "<MASTER_IP>", fleetMachine.PublicIP, -1)
@@ -313,9 +314,9 @@ func getUnitState(unitFile string) FleetUnitState {
 }
 
 func lowerCasingOfUnitOptionsStr(json_str string) string {
-	json_str = strings.Replace(json_str, "Section", "section", -1)
-	json_str = strings.Replace(json_str, "Name", "name", -1)
-	json_str = strings.Replace(json_str, "Value", "value", -1)
+	json_str = strings.Replace(json_str, "\"Section\"", "\"section\"", -1)
+	json_str = strings.Replace(json_str, "\"Name\"", "\"name\"", -1)
+	json_str = strings.Replace(json_str, "\"Value\"", "\"value\"", -1)
 
 	return json_str
 }

@@ -6,12 +6,15 @@ Requires=master-download-kubernetes@<ID>.service
 
 [Service]
 EnvironmentFile=/run/discovery_ip_port
+ExecStartPre=/usr/bin/openssl genrsa -out /tmp/kube-serviceaccount.key 2048
 ExecStart=/opt/bin/kube-apiserver \
---address=0.0.0.0 \
---port=8080 \
---portal_net=10.1.0.0/16 \
---etcd_servers=${DISCOVERY_IP_PORT} \
---public_address_override=<IP_ADDR> \
+--insecure-bind-address=0.0.0.0 \
+--insecure-port=8080 \
+--service-cluster-ip-range=10.1.0.0/16 \
+--etcd-servers=${DISCOVERY_IP_PORT} \
+--bind-address=<IP_ADDR> \
+--service_account_key_file=/tmp/kube-serviceaccount.key \
+--admission-control="NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota" \
 --logtostderr=true
 Restart=always
 RestartSec=2
