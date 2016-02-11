@@ -1,21 +1,26 @@
 [Unit]
 ConditionFileIsExecutable=/opt/bin/kube-apiserver
 Description=Kubernetes API Server
-After=master-download-kubernetes@<ID>.service
+Wants=generate-k8s-certs.service
+After=master-download-kubernetes@<ID>.service generate-k8s-certs.service
 Requires=master-download-kubernetes@<ID>.service
 
 [Service]
 EnvironmentFile=/run/discovery_ip_port
-ExecStartPre=/usr/bin/openssl genrsa -out /tmp/kube-serviceaccount.key 2048
 ExecStart=/opt/bin/kube-apiserver \
+--admission_control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota \
+--bind-address=<IP_ADDR> \
+--client-ca-file=/srv/kubernetes/ca.crt \
+--etcd-servers=${DISCOVERY_IP_PORT} \
 --insecure-bind-address=0.0.0.0 \
 --insecure-port=8080 \
+--logtostderr=true \
+--secure-port=443 \
 --service-cluster-ip-range=10.1.0.0/16 \
---etcd-servers=${DISCOVERY_IP_PORT} \
---bind-address=<IP_ADDR> \
---service_account_key_file=/tmp/kube-serviceaccount.key \
---admission-control="NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota" \
---logtostderr=true
+--service-account-key-file=/srv/kubernetes/server.key \
+--tls-cert-file=/srv/kubernetes/server.cert \
+--tls-private-key-file=/srv/kubernetes/server.key \
+--v=2
 Restart=always
 RestartSec=2
 

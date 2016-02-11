@@ -1,14 +1,18 @@
 [Unit]
 ConditionFileIsExecutable=/opt/bin/kube-controller-manager
 Description=Kubernetes Controller Manager
-After=master-download-kubernetes@<ID>.service
+Wants=generate-k8s-certs.service
+After=master-download-kubernetes@<ID>.service generate-k8s-certs.service
 Requires=master-download-kubernetes@<ID>.service
 
 [Service]
 ExecStart=/opt/bin/kube-controller-manager \
 --master=127.0.0.1:8080 \
---service_account_private_key_file=/tmp/kube-serviceaccount.key \
---logtostderr=true
+--logtostderr=true \
+--node-monitor-grace-period=7s \
+--pod-eviction-timeout=5s \
+--root-ca-file=/srv/kubernetes/ca.crt \
+--service-account-private-key-file=/srv/kubernetes/server.key
 Restart=always
 RestartSec=2
 
