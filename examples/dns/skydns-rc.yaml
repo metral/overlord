@@ -48,7 +48,6 @@ spec:
         args:
         # command = "/kube2sky"
         - -domain=kube.local
-        - -kube_master_url=http://MASTER_IP:8080
       - name: skydns
         image: skynetservices/skydns:latest
         resources:
