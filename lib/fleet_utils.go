@@ -54,7 +54,7 @@ func (m Map) String() string {
 	return output
 }
 
-func createMasterUnits(fleetMachine *FleetMachine) []string {
+func CreateMasterUnits(fleetMachine *FleetMachine) []string {
 	unitPathInfo := setupUnitFilesDeps()
 
 	files := map[string]string{
@@ -154,7 +154,7 @@ func createMasterUnits(fleetMachine *FleetMachine) []string {
 	return createdFiles
 }
 
-func createMinionUnits(masterFleetMachine,
+func CreateMinionUnits(masterFleetMachine,
 	fleetMachine *FleetMachine) []string {
 
 	masterIPPort := fmt.Sprintf("%s:%s",
@@ -321,7 +321,7 @@ func lowerCasingOfUnitOptionsStr(json_str string) string {
 	return json_str
 }
 
-func startUnitFile(unitFile string) {
+func StartUnitFile(unitFile string) {
 	filename := filepath.Base(unitFile)
 	unitFilepath := fmt.Sprintf(
 		"fleet/%s/units/%s", Conf.FleetAPIVersion, filename)
@@ -373,7 +373,7 @@ func startUnitFile(unitFile string) {
 	}
 }
 
-func unitFileCompleted(unitFile string) bool {
+func UnitFileCompleted(unitFile string) bool {
 	filename := filepath.Base(unitFile)
 	dir := filepath.Dir(unitFile)
 
@@ -389,12 +389,12 @@ func unitFileCompleted(unitFile string) bool {
 	return false
 }
 
-func waitUnitFileComplete(unitFile string) {
+func WaitUnitFileComplete(unitFile string) {
 	filename := filepath.Base(unitFile)
 
 	complete := false
 	for !complete {
-		complete = unitFileCompleted(unitFile)
+		complete = UnitFileCompleted(unitFile)
 
 		if !complete {
 			log.Printf("-- Waiting for the following unit file to complete: %s",
