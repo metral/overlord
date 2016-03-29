@@ -14,8 +14,8 @@ ExecStartPre=/usr/bin/chmod +x /root/skydns-rc.yaml
 ExecStartPre=/usr/bin/chmod +x /root/skydns-svc.yaml
 ExecStartPre=/usr/bin/sed -i -e 's/MASTER_IP/<MASTER_IP>/g' /root/skydns-rc.yaml
 ExecStart=/usr/bin/bash -c '/opt/bin/kubectl --server=0.0.0.0:8080 create -f /root/kube-system-ns.yaml'
-ExecStart=/usr/bin/bash -c 'if [ -z "$(/opt/bin/kubectl --server=0.0.0.0:8080 get rc --namespace=kube-system | grep kube-dns)" ]; then /opt/bin/kubectl create -f /root/skydns-rc.yaml; fi'
-ExecStart=/usr/bin/bash -c 'if [ -z "$(/opt/bin/kubectl --server=0.0.0.0:8080 get services --namespace=kube-system | grep kube-dns)" ]; then /opt/bin/kubectl create -f /root/skydns-svc.yaml; fi'
+ExecStart=/usr/bin/bash -c 'if [ -z "$(/opt/bin/kubectl --server=0.0.0.0:8080 get rc --namespace=kube-system | grep kube-dns)" ]; then /opt/bin/kubectl create --server=0.0.0.0:8080 -f /root/skydns-rc.yaml; fi'
+ExecStart=/usr/bin/bash -c 'if [ -z "$(/opt/bin/kubectl --server=0.0.0.0:8080 get services --namespace=kube-system | grep kube-dns)" ]; then /opt/bin/kubectl create --server=0.0.0.0:8080 -f /root/skydns-svc.yaml; fi'
 RemainAfterExit=yes
 
 [X-Fleet]
