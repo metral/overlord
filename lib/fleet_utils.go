@@ -140,8 +140,7 @@ func CreateMasterUnits(fleetMachine *FleetMachine) []string {
 	readfile, err = ioutil.ReadFile(fmt.Sprintf("/templates/%s", files["dns"]))
 	goutils.PrintErrors(goutils.ErrorParams{Err: err, CallerNum: 2, Fatal: false})
 
-	dns_content := strings.Replace(string(readfile), "<NS_URL>", Conf.KubeSystemNamespace, -1)
-	dns_content = strings.Replace(dns_content, "<RC_URL>", Conf.SkyDNSRepContr, -1)
+	dns_content := strings.Replace(string(readfile), "<RC_URL>", Conf.SkyDNSRepContr, -1)
 	dns_content = strings.Replace(dns_content, "<SVC_URL>", Conf.SkyDNSService, -1)
 	dns_content = strings.Replace(dns_content, "<ID>", fleetMachine.ID, -1)
 	dns_content = strings.Replace(dns_content, "<MASTER_IP>", fleetMachine.PublicIP, -1)
