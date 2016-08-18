@@ -20,8 +20,8 @@
 		},
 		{
 			"ImportPath": "github.com/coreos/go-systemd/unit",
-			"Comment": "v5",
-			"Rev": "7b2428fec40033549c68f54e26e89e7ca9a9ce31"
+			"Comment": "v4",
+			"Rev": "b4a58d95188dd092ae20072bac14cece0e67c388"
 		},
 		{
 			"ImportPath": "github.com/jonboulle/clockwork",

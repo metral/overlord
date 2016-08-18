@@ -1,5 +1,5 @@
 {
-"binariesUrl": "https://1b4850c1adcfb5bd2234-cb45475607fbc6ac46c04ca8ed560e6a.ssl.cf1.rackcdn.com",
+"binariesUrl": "https://storage.googleapis.com/kubernetes-release/release/v1.3.5/bin/linux/amd64",
 "kubernetesAPIVersion": "v1",
 "kubernetesAPIPort": "8080",
 "fleetAPIVersion": "v1",
